@@ -1,0 +1,48 @@
+.main input,
+.main textarea {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.distance {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    width: 60px;
+}
+
+.main textarea {
+    resize: vertical;
+    max-height: 100px;
+    min-height: 50px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.color {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: .4rem;
+    margin: .5rem;
+    border-radius: 5px;
+    aspect-ratio: 1;
+    background-color: var(--inverse-background);
+    cursor: pointer;
+}
+
+.main button {
+    background-color: var(--inverse-background);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: .4rem;
+    color: var(--inverse-color);
+    font-family: inherit;
+    cursor: pointer;
+}

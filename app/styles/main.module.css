@@ -1,0 +1,25 @@
+.main {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    color: var(--color);
+
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.link {
+    text-decoration: underline;
+    color: var(--color);
+    filter: brightness(0.8);
+}
+
+.link_bright {
+    filter: brightness(1.2);
+}
