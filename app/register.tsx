@@ -88,7 +88,7 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                             <div className={styles_create.url}>
                                 <input type="url" name="url" placeholder="Ссылка (опционально)" />
                                 <input type="text" name="name" placeholder="Введите имя" maxLength={20} />
-                            </div>,
+                            </div>,&nbsp;
                             <input
                                 type="number"
                                 name="distance"
@@ -96,7 +96,7 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                                 defaultValue={300}
                                 onInput={handleDistanceChange}
                                 className={styles_create.distance} />
-                            {meterString} от вас
+                            &nbsp;{meterString} от вас
                         </h1>
                         <h2>
                             <textarea
