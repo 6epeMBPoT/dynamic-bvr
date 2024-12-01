@@ -84,11 +84,12 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                 >
                     <h2 style={{ position: 'fixed', left: 0, top: 0, margin: '.5rem' }}>Регистрация домена {punycode.toUnicode(subdomain)}.беретврот.рф</h2>
                     <div>
-                        <h1>
+                        <h1 style={{ marginBottom: '-1rem' }}>
                             <div className={styles_create.url}>
                                 <input type="url" name="url" placeholder="Ссылка (опционально)" />
                                 <input type="text" name="name" placeholder="Введите имя" maxLength={20} />
-                            </div>,&nbsp;
+                            </div>
+                            ,&nbsp;
                             <input
                                 type="number"
                                 name="distance"
@@ -96,7 +97,8 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                                 defaultValue={300}
                                 onInput={handleDistanceChange}
                                 className={styles_create.distance} />
-                            &nbsp;{meterString} от вас
+                            &nbsp;
+                            {meterString} от вас
                         </h1>
                         <h2>
                             <textarea
