@@ -6,6 +6,7 @@ import Client from "./client";
 import Register from "./register";
 import { Metadata } from "next";
 import punycode from 'punycode';
+import Main from "./main";
 
 export const generateMetadata = async (): Promise<Metadata> => {
     const headersList = await headers();
@@ -52,7 +53,9 @@ const Home = async () => {
     const fragments = host.split('.');
     const data = await getSubdomain(fragments[0]);
 
-    //await prisma.subdomain.update({ where: { subdomain: 'andcool' }, data: { description: `Напишу код,\nПоложу прод` } })
+    if (fragments[0] === 'xn--80aafc4bo1k') {
+        return <Main />
+    }
 
     if (!data) {
         return <Register subdomain={fragments[0]} />
