@@ -2,7 +2,7 @@
 
 import { Subdomain } from "@prisma/client";
 import styles from '@/app/styles/main.module.css';
-import { formatText, isBright } from "./utils/utils";
+import { formatText, isBright, numbersTxt } from "./utils/utils";
 import { CSSProperties } from "react";
 
 const Client = ({ data }: { data: Subdomain }) => {
@@ -22,7 +22,7 @@ const Client = ({ data }: { data: Subdomain }) => {
                 <h1>
                     <a href={data.url ?? undefined} className={`${styles.link} ${bright && styles.link_bright}`}>
                         {data.name.slice(0, 15)}
-                    </a>, {data.distance} метров от вас.
+                    </a>, {data.distance} {numbersTxt(Number(data.distance), ['метр', 'метра', 'метров'])} от вас.
                 </h1>
                 <h2 style={{ wordBreak: 'break-word' }}>{formatText(data.description + ',\nВозьму в рот.')}</h2>
             </div>

@@ -5,7 +5,7 @@ import { publishForm } from "./actions/publish.module";
 import styles from '@/app/styles/main.module.css';
 import styles_create from '@/app/styles/create.module.css';
 import Image from "next/image";
-import { inverseColor, isBright } from "./utils/utils";
+import { inverseColor, isBright, numbersTxt } from "./utils/utils";
 import punycode from 'punycode';
 
 interface ResponseInterface {
@@ -24,6 +24,7 @@ interface ResponseInterface {
 
 const Register = ({ subdomain }: { subdomain: string }) => {
     const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+    const [meterString, setMeterString] = useState<string>('метров');
     const [response, setResponse] = useState<ResponseInterface | null>(null);
     const colorInputRef = useRef<HTMLInputElement>(null);
     const bright = isBright(backgroundColor);
@@ -65,6 +66,8 @@ const Register = ({ subdomain }: { subdomain: string }) => {
         const target = e.target as HTMLInputElement;
         const distance = target.value;
         target.value = distance.toString().slice(0, 10);
+
+        setMeterString(numbersTxt(Number(target.value), ['метр', 'метра', 'метров']));
     }
 
     return (
@@ -90,7 +93,7 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                                 defaultValue={300}
                                 onInput={handleDistanceChange}
                                 className={styles_create.distance} />
-                            метров от вас
+                            {meterString} от вас
                         </h1>
                         <h2>
                             <textarea

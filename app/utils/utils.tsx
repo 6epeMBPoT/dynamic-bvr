@@ -32,4 +32,20 @@ export const inverseColor = (hex: string): string => {
     return rgbToHex(255 - r, 255 - g, 255 - b);
 }
 
+export const numbersTxt = (num: number, variations: [string, string, string]): string => {
+    const past = num % 10;
+    const first = Math.floor(num / 10) % 10;
+
+    let text: string;
+    if (past === 1 && !num.toString().endsWith('11')) {
+        text = variations[0];  // голос
+    } else if (past >= 2 && past <= 4 && first !== 1) {
+        text = variations[1];  // голоса
+    } else {
+        text = variations[2];  // голосов
+    }
+
+    return text;
+}
+
 export const formatText = (string: string) => string.split('\n').map((el, id) => (<React.Fragment key={id}>{el}<br /></React.Fragment>));
