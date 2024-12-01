@@ -85,7 +85,10 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                     <h2 style={{ position: 'fixed', left: 0, top: 0, margin: '.5rem' }}>Регистрация домена {punycode.toUnicode(subdomain)}.беретврот.рф</h2>
                     <div>
                         <h1>
-                            <input type="text" name="name" placeholder="Введите имя" maxLength={20} />,
+                            <div className={styles_create.url}>
+                                <input type="url" name="url" placeholder="Ссылка (опционально)" />
+                                <input type="text" name="name" placeholder="Введите имя" maxLength={20} />
+                            </div>,
                             <input
                                 type="number"
                                 name="distance"

@@ -18,8 +18,8 @@ export async function publishForm(data: FormData, subdomain: string) {
             description: data.get('description') as string ?? 'Куплю пива',
             distance: (data.get('distance') as string ?? '300').toString(),
             key: Math.random().toString(36).substring(2, 12),
-            url: undefined,
-            background_color: data.get('color') as string ?? '#000000'
+            url: data.get('url') as string || undefined,
+            background_color: data.get('color') as string ?? '#000000',
         }
     })
 

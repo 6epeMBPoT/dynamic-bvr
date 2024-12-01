@@ -46,3 +46,10 @@
     font-family: inherit;
     cursor: pointer;
 }
+
+.url {
+    display: inline-flex;
+    flex-direction: column;
+    transform: translateY(-50%);
+    gap: 5px;
+}
