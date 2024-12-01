@@ -16,7 +16,7 @@ export async function publishForm(data: FormData, subdomain: string) {
             subdomain: subdomain,
             name: data.get('name') as string ?? 'default',
             description: data.get('description') as string ?? 'Куплю пива',
-            distance: parseInt(data.get('distance') as string ?? '300'),
+            distance: (data.get('distance') as string ?? '300').toString(),
             key: Math.random().toString(36).substring(2, 12),
             url: undefined,
             background_color: data.get('color') as string ?? '#000000'

@@ -13,6 +13,6 @@ model Subdomain {
     url              String?
     description      String
     background_color String
-    distance         Int
+    distance         String
     key              String
 }

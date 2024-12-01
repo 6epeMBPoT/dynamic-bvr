@@ -1,6 +1,6 @@
 'use client';
 
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
 import { publishForm } from "./actions/publish.module";
 import styles from '@/app/styles/main.module.css';
 import styles_create from '@/app/styles/create.module.css';
@@ -17,7 +17,7 @@ interface ResponseInterface {
         url: string | null;
         description: string;
         background_color: string;
-        distance: number;
+        distance: string;
         key: string;
     };
 }
@@ -61,6 +61,12 @@ const Register = ({ subdomain }: { subdomain: string }) => {
         }
     };
 
+    const handleDistanceChange = (e: FormEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement;
+        const distance = target.value;
+        target.value = distance.toString().slice(0, 10);
+    }
+
     return (
         <>
             <form action={handleSubmit}>
@@ -76,12 +82,13 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                     <h2 style={{ position: 'fixed', left: 0, top: 0, margin: '.5rem' }}>Регистрация домена {punycode.toUnicode(subdomain)}.беретврот.рф</h2>
                     <div>
                         <h1>
-                            <input type="text" name="name" placeholder="Введите имя" />,
+                            <input type="text" name="name" placeholder="Введите имя" maxLength={20} />,
                             <input
                                 type="number"
                                 name="distance"
                                 placeholder="Расстояние"
                                 defaultValue={300}
+                                onInput={handleDistanceChange}
                                 className={styles_create.distance} />
                             метров от вас
                         </h1>
@@ -98,7 +105,7 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                                 className={styles_create.color}
                             >
                                 <Image
-                                    src='/palette.svg'
+                                    src='/static/palette.svg'
                                     alt='palette'
                                     style={{ filter: `invert(${bright ? 1 : 0})` }}
                                     width={24}

@@ -18,16 +18,13 @@ const Client = ({ data }: { data: Subdomain }) => {
             }
             className={styles.main}
         >
-            <div>
+            <div style={{ 'maxWidth': '50%' }}>
                 <h1>
-                    <a
-                        href={data.url ?? undefined}
-                        className={`${styles.link} ${bright && styles.link_bright}`}
-                    >
-                        {data.name}
+                    <a href={data.url ?? undefined} className={`${styles.link} ${bright && styles.link_bright}`}>
+                        {data.name.slice(0, 15)}
                     </a>, {data.distance} метров от вас.
                 </h1>
-                <h2>{formatText(data.description + ',\nВозьму в рот.')}</h2>
+                <h2 style={{ wordBreak: 'break-word' }}>{formatText(data.description + ',\nВозьму в рот.')}</h2>
             </div>
         </main>
     )
