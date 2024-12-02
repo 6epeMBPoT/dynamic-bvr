@@ -1,13 +1,51 @@
 "use client";
 
-import { Subdomain } from "@prisma/client";
 import styles from '@/app/styles/main.module.css';
-import { formatText, isBright, numbersTxt } from "./utils/utils";
-import { CSSProperties } from "react";
+import { formatText, inverseColor, isBright, numbersTxt } from "./utils/utils";
+import { CSSProperties, useEffect, useState } from "react";
+import Register from "./register";
+import { Subdomain } from './utils/interfaces';
+import Image from 'next/image';
+
 
 const Client = ({ data }: { data: Subdomain }) => {
+    const [editing, setEditing] = useState<boolean>(false);
+    const [editAvailable, setEditAvailable] = useState<boolean>(false);
+    const [key, setKey] = useState<string>('');
     const bright = isBright(data.background_color);
 
+    useEffect(() => {
+        const keys = window.localStorage.getItem('keys');
+        const keys_json = JSON.parse(keys ?? '{}') as { [key: string]: string };
+        if (!!keys && keys_json[data.subdomain]) {
+            setEditAvailable(true);
+            setKey(keys_json[data.subdomain]);
+        }
+    });
+
+    return (
+        <>
+            {editing ? <Register data={data} subdomain={data.subdomain} auth_key={key} edit /> : <Display data={data} />}
+            {editAvailable && !editing &&
+                <div
+                    onClick={() => setEditing(true)}
+                    className={styles.edit}
+                    style={{ backgroundColor: inverseColor(data.background_color) }}
+                >
+                    <Image
+                        src='/static/edit.svg'
+                        alt='palette'
+                        style={{ filter: `invert(${bright ? 1 : 0})` }}
+                        width={24}
+                        height={24} />
+                </div>
+            }
+        </>
+    )
+}
+
+const Display = ({ data }: { data: Subdomain }) => {
+    const bright = isBright(data.background_color);
     return (
         <main
             style={
@@ -18,7 +56,7 @@ const Client = ({ data }: { data: Subdomain }) => {
             }
             className={styles.main}
         >
-            <div style={{ 'maxWidth': '50%' }}>
+            <div className={styles.container}>
                 <h1>
                     <a href={data.url ?? undefined} className={`${styles.link} ${bright && styles.link_bright}`}>
                         {data.name.slice(0, 15)}

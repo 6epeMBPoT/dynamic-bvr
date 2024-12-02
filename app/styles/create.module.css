@@ -48,6 +48,5 @@
 .url {
     display: inline-flex;
     flex-direction: column;
-    transform: translateY(-55%);
     gap: 5px;
 }

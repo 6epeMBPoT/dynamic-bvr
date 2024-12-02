@@ -7,6 +7,8 @@ import styles_create from '@/app/styles/create.module.css';
 import Image from "next/image";
 import { inverseColor, isBright, numbersTxt } from "./utils/utils";
 import punycode from 'punycode';
+import { Subdomain } from "./utils/interfaces";
+import { editForm } from "./actions/edit.module";
 
 interface ResponseInterface {
     error: boolean;
@@ -22,8 +24,13 @@ interface ResponseInterface {
     };
 }
 
-const Register = ({ subdomain }: { subdomain: string }) => {
-    const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+const Register = ({
+    subdomain,
+    edit,
+    data,
+    auth_key
+}: { subdomain: string, edit?: boolean, data?: Subdomain, auth_key?: string }) => {
+    const [backgroundColor, setBackgroundColor] = useState<string>(data?.background_color ?? '#ffffff');
     const [meterString, setMeterString] = useState<string>('метров');
     const [response, setResponse] = useState<ResponseInterface | null>(null);
     const colorInputRef = useRef<HTMLInputElement>(null);
@@ -33,10 +40,27 @@ const Register = ({ subdomain }: { subdomain: string }) => {
         const name = data.get('name');
         const distance = data.get('distance');
         const description = data.get('description');
-        if (!name || distance === '' || !description) {
+
+        if (!name) {
+            alert('Введите имя!');
             return;
         }
-        setResponse(await publishForm(data, subdomain));
+
+        if (distance === '') {
+            alert('Расстояние не может быть пустой строкой!');
+            return;
+        }
+
+        if (!description) {
+            alert('Введите описание!');
+            return;
+        }
+
+        if (!!edit && auth_key) {
+            setResponse(await editForm(data, subdomain, auth_key));
+        } else {
+            setResponse(await publishForm(data, subdomain));
+        }
     }
 
     useEffect(() => {
@@ -84,25 +108,34 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                 >
                     <h2 style={{ position: 'fixed', left: 0, top: 0, margin: '.5rem' }}>Регистрация домена {punycode.toUnicode(subdomain)}.беретврот.рф</h2>
                     <div>
-                        <h1 style={{ marginBottom: '-1rem' }}>
-                            <div className={styles_create.url}>
-                                <input type="url" name="url" placeholder="Ссылка (опционально)" />
-                                <input type="text" name="name" placeholder="Введите имя" maxLength={20} />
+                        <h1>
+                            <div style={{
+                                display: 'inline-flex',
+                                alignItems: 'flex-end',
+                                flexWrap: 'wrap',
+                                gap: '.5rem'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                                    <div className={styles_create.url}>
+                                        <input type="url" name="url" placeholder="Ссылка (опционально)" defaultValue={data?.url ?? ''} />
+                                        <input type="text" name="name" placeholder="Введите имя" maxLength={20} defaultValue={data?.name ?? ''} />
+                                    </div>
+                                    ,
+                                </div>
+                                <input
+                                    type="number"
+                                    name="distance"
+                                    placeholder="Расстояние"
+                                    defaultValue={data?.distance ?? 300}
+                                    onInput={handleDistanceChange}
+                                    className={styles_create.distance} />
+                                {meterString} от вас
                             </div>
-                            ,&nbsp;
-                            <input
-                                type="number"
-                                name="distance"
-                                placeholder="Расстояние"
-                                defaultValue={300}
-                                onInput={handleDistanceChange}
-                                className={styles_create.distance} />
-                            &nbsp;
-                            {meterString} от вас
                         </h1>
                         <h2>
                             <textarea
                                 name="description"
+                                defaultValue={data?.description ?? ''}
                                 maxLength={100} />, <br />
                             Возьму в рот
                         </h2>
@@ -122,7 +155,7 @@ const Register = ({ subdomain }: { subdomain: string }) => {
                             <input
                                 type="color"
                                 name="color"
-                                defaultValue='#ffffff'
+                                defaultValue={data?.background_color ?? '#ffffff'}
                                 ref={colorInputRef}
                                 style={{ display: 'none' }}
                                 onChange={e => setBackgroundColor(e.target.value)}

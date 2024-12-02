@@ -44,7 +44,12 @@ export const generateMetadata = async (): Promise<Metadata> => {
     }
 }
 
-const getSubdomain = async (subdomain: string) => await prisma.subdomain.findFirst({ where: { subdomain } });
+const getSubdomain = async (subdomain: string) =>
+    await prisma.subdomain.findFirst({
+        where: { subdomain },
+        select: { subdomain: true, name: true, description: true, background_color: true, url: true, distance: true }
+    });
+
 
 const Home = async () => {
     const headersList = await headers();

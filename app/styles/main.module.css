@@ -23,3 +23,37 @@
 .link_bright {
     filter: brightness(1.2);
 }
+
+.container {
+    max-width: 50%;
+}
+
+.edit {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 999;
+
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: .4rem;
+    cursor: pointer;
+
+    width: 24px;
+    height: 24px;
+}
+
+@media(max-width: 550px) {
+    .container {
+        max-width: 90%;
+    }
+
+    .container h1 {
+        font-size: 1.3rem;
+    }
+
+    .container h2 {
+        font-size: 1.1rem;
+    }
+}
