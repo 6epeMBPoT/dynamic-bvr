@@ -49,3 +49,5 @@ export const numbersTxt = (num: number, variations: [string, string, string]): s
 }
 
 export const formatText = (string: string) => string.split('\n').map((el, id) => (<React.Fragment key={id}>{el}<br /></React.Fragment>));
+
+export const removeTrailingPunctuation = (string: string) => string.replace(/[.,!?;:]+$/, '');

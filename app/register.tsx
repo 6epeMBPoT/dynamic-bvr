@@ -4,7 +4,7 @@ import { CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
 import { publishForm } from "./actions/publish.module";
 import styles from '@/app/styles/main.module.css';
 import styles_create from '@/app/styles/create.module.css';
-import { inverseColor, isBright, numbersTxt } from "./utils/utils";
+import { inverseColor, isBright, numbersTxt, removeTrailingPunctuation } from "./utils/utils";
 import punycode from 'punycode';
 import { Subdomain } from "./utils/interfaces";
 import { editForm } from "./actions/edit.module";
@@ -136,6 +136,7 @@ const Register = ({
                             <textarea
                                 name="description"
                                 defaultValue={data?.description ?? ''}
+                                onChange={e => { e.target.value = removeTrailingPunctuation(e.target.value) }}
                                 maxLength={100} />, <br />
                             Возьму в рот
                         </h2>
