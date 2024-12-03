@@ -2,13 +2,7 @@ import { numbersTxt } from '@/app/utils/utils';
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
-interface RouteParams {
-    params: {
-        domain: string;
-    };
-}
-
-export async function GET(request: Request, { params }: RouteParams) {
+export async function GET(request: Request, { params }: any) {
     const { domain } = await params;
     const host = request.headers.get('host') as string;
     const domainParts = host.split('.');
@@ -26,9 +20,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     const isBot = /Googlebot|YandexBot|bingbot|DuckDuckBot|Baiduspider/i.test(userAgent);
 
     if (isBot) {
-        const headers = new Headers({
-            'Content-Type': 'text/html',
-        });
+        const headers = new Headers({ 'Content-Type': 'text/html' });
 
         const content = `
 <!DOCTYPE html>
