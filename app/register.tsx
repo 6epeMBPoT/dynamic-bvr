@@ -136,7 +136,6 @@ const Register = ({
                             <textarea
                                 name="description"
                                 defaultValue={data?.description ?? ''}
-                                onChange={e => { e.target.value = removeTrailingPunctuation(e.target.value) }}
                                 maxLength={100} />, <br />
                             Возьму в рот
                         </h2>
