@@ -11,6 +11,7 @@ const Main = () => {
                 <a href='/random' className={styles_home.link}>Случайный домен</a>
                 <p>Для регистрация желаемого домена третьего уровня введите его в поисковую строку.</p>
             </div>
+            <p style={{ position: 'fixed', left: '1rem', bottom: '1rem', margin: 0 }}>Created by ПЕПСИ community</p>
         </main>
     );
 }
